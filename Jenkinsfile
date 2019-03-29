@@ -8,6 +8,14 @@ pipeline {
         sh "mvn install"
       }
     }
+    stage('test') {
+                //Test tasks, for example:
+                try {
+                    sh "mvn test"
+                } finally {
+                    junit 'build/test-results/test/*.xml' //fail build if JUnit plugin reports exceptions
+                }
+            }
     stage('Create Image Builder') {
       when {
         expression {
